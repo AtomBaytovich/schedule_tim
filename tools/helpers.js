@@ -9,6 +9,7 @@ const getNumberDay = (dayWeek) => {
 }
 
 const chetOrNoChetWeek = (date = new Date()) => {
+    //https://dwweb.ru/chetnost_nedeli.html#paragraph_javascript_even_odd_week_2
     let d0 = new Date(date).getTime(),
 
         d = new Date(new Date(date).getFullYear(), 0, 1),
