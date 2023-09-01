@@ -65,10 +65,10 @@ const rasp = (command, date = new Date()) => {
 }
 
 
-const raspMessage = (ctx) => {
+const raspMessage = (ctx, isDel) => {
     try {
         let { text, dateBack, dateNext, isNow } = rasp(ctx)
-
+        if (isDel) ctx.deleteMessage()
         ctx.reply(text, {
             ...dateRaspButton({ dateBack, dateNext, isNow })
         });
