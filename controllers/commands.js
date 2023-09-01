@@ -4,8 +4,7 @@ const { dateRaspButton, menuButton } = require('./buttons');
 const { getNumberDay, chetOrNoChetWeek, smileFACE } = require('../tools/helpers');
 moment.locale("ru")
 
-const start = (ctx, isDel) => {
-    if (isDel) ctx.deleteMessage()
+const start = (ctx) => {
     return ctx.reply(`
         ❤️ Привет, ${ctx.from.first_name}! 
     ❔ Я помогу тебе с расписанием 
@@ -66,11 +65,9 @@ const rasp = (command, date = new Date()) => {
 }
 
 
-const raspMessage = (ctx, isDel = undefined) => {
+const raspMessage = (ctx) => {
     try {
         let { text, dateBack, dateNext, isNow } = rasp(ctx)
-        
-        if (isDel) ctx.deleteMessage()
 
         ctx.reply(text, {
             ...dateRaspButton({ dateBack, dateNext, isNow })
