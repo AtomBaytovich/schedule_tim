@@ -16,13 +16,13 @@ const start = (ctx) => {
     `);
 }
 
-const rasp = (command, date = new Date()) => {
+const rasp = (command, date) => {
     try {
         let dateBack = moment().add(-1, 'days').format('L')
         let dateNext = moment().add(+1, 'days').format('L')
         let dayWeek = moment().format('dddd');
-        let chetOrNechet = chetOrNoChetWeek(moment().format('DD MM YYYY'))
-        console.log(moment())
+        let chetOrNechet = chetOrNoChetWeek(moment())
+
         if (command == "движение") {
             dateBack = moment(date).add(-1, 'days').format('L')
             dateNext = moment(date).add(+1, 'days').format('L')
