@@ -21,13 +21,13 @@ const rasp = (command, date) => {
         let dateBack = moment().add(-1, 'days').format('L')
         let dateNext = moment().add(+1, 'days').format('L')
         let dayWeek = moment().format('dddd');
-        let chetOrNechet = chetOrNoChetWeek(moment())
+        let chetOrNechet = chetOrNoChetWeek(moment().isoWeek())
 
         if (command == "движение") {
             dateBack = moment(date).add(-1, 'days').format('L')
             dateNext = moment(date).add(+1, 'days').format('L')
             dayWeek = moment(date).format('dddd');
-            chetOrNechet = chetOrNoChetWeek(date)
+            chetOrNechet = chetOrNoChetWeek(moment(date).isoWeek())
         }
 
         let dayWeeekNumber = getNumberDay(dayWeek)
@@ -71,6 +71,7 @@ const raspMessage = (ctx, isDel) => {
     try {
         let { text, dateBack, dateNext, isNow } = rasp(ctx)
         if (isDel) ctx.deleteMessage()
+
         ctx.replyWithHTML(text, {
             ...dateRaspButton({ dateBack, dateNext, isNow })
         });
@@ -82,6 +83,7 @@ const raspMessage = (ctx, isDel) => {
 const raspMovementMessage = (ctx) => {
     try {
         const dateCallback = ctx.match["input"].split(" ")[1]
+
         let { text, dateBack, dateNext, isNow } = rasp("движение", moment(dateCallback, "DD MM YYYY"))
 
         ctx.deleteMessage()

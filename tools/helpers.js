@@ -8,23 +8,10 @@ const getNumberDay = (dayWeek) => {
     if (dayWeek == "воскресенье") return 6;
 }
 
-const chetOrNoChetWeek = (date = new Date()) => {
-    //https://dwweb.ru/chetnost_nedeli.html#paragraph_javascript_even_odd_week_2
-    let d0 = new Date(date).getTime(),
-
-        d = new Date(new Date(date).getFullYear(), 0, 1),
-
-        d1 = d.getTime(),
-
-        dd = d.getDay(),
-
-        re = Math.floor((d0 - d1) / 8.64e7) + (dd ? dd - 1 : 6);
-
-    if (Math.floor(re / 7) % 2) {
-        return 'нечётная'
-    } else {
-        return 'чётная'
-    }
+const chetOrNoChetWeek = (num) => {
+    console.log(num)
+    if (num % 2 == 0) return 'чётная'
+    else return 'нечётная'
 }
 
 const smileFACE = (num) => {
