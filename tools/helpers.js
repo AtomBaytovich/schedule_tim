@@ -36,8 +36,17 @@ const smileFACE = (num) => {
     if (num == 6) return '6️⃣'
 }
 
+const getTimePar = (num) => {
+    if (num == 1) return "09.00-10.35"
+    if (num == 2) return "10.55-12.30"
+    if (num == 3) return "13.00-14.35"
+    if (num == 4) return "14.55-16.30"
+    if (num == 5) return "16.50-18.25"
+}
+
 module.exports = {
     getNumberDay,
     chetOrNoChetWeek,
-    smileFACE
+    smileFACE,
+    getTimePar
 }

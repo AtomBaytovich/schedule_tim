@@ -1,8 +1,10 @@
 const raspJson = require('../rasp.json');
-const moment = require("moment/moment");
+//const moment = require("moment/moment");
+const moment = require('moment-timezone')
 const { dateRaspButton, menuButton } = require('./buttons');
-const { getNumberDay, chetOrNoChetWeek, smileFACE } = require('../tools/helpers');
+const { getNumberDay, chetOrNoChetWeek, smileFACE, getTimePar } = require('../tools/helpers');
 moment.locale("ru")
+moment.tz.setDefault('Europe/Moscow')
 
 const start = (ctx) => {
     return ctx.reply(`
@@ -20,7 +22,7 @@ const rasp = (command, date = new Date()) => {
         let dateNext = moment().add(+1, 'days').format('L')
         let dayWeek = moment().format('dddd');
         let chetOrNechet = chetOrNoChetWeek()
-
+        console.log(moment())
         if (command == "движение") {
             dateBack = moment(date).add(-1, 'days').format('L')
             dateNext = moment(date).add(+1, 'days').format('L')
@@ -40,14 +42,14 @@ const rasp = (command, date = new Date()) => {
 
                 if (chetOrNechet == 'нечётная') {
                     if (dataNow[i][0].length < 2) continue
-                    text += `\n${smileFACE(i + 1)}. ${dataNow[i][0]}`
+                    text += `\n\n${smileFACE(i + 1)}. <b>${getTimePar(i + 1)}</b> | <code>${dataNow[i][0]}</code>`
                 } else {
                     if (dataNow[i][1].length < 2) continue
-                    text += `\n${smileFACE(i + 1)}. ${dataNow[i][1]}`
+                    text += `\n\n${smileFACE(i + 1)}. <b>${getTimePar(i + 1)}</b> | <code>${dataNow[i][1]}</code>`
                 }
             } else {
                 if (dataNow[i][0].length < 2) continue
-                text += `\n${smileFACE(i + 1)}. ${dataNow[i][0]}`
+                text += `\n\n${smileFACE(i + 1)}. <b>${getTimePar(i + 1)}</b> | <code>${dataNow[i][0]}</code>`
             }
         }
 
@@ -69,7 +71,7 @@ const raspMessage = (ctx, isDel) => {
     try {
         let { text, dateBack, dateNext, isNow } = rasp(ctx)
         if (isDel) ctx.deleteMessage()
-        ctx.reply(text, {
+        ctx.replyWithHTML(text, {
             ...dateRaspButton({ dateBack, dateNext, isNow })
         });
     } catch (error) {
@@ -83,7 +85,7 @@ const raspMovementMessage = (ctx) => {
         let { text, dateBack, dateNext, isNow } = rasp("движение", moment(dateCallback, "DD MM YYYY"))
 
         ctx.deleteMessage()
-        ctx.reply(text, {
+        ctx.replyWithHTML(text, {
             ...dateRaspButton({ dateBack, dateNext, isNow })
         });
     } catch (error) {
@@ -92,7 +94,7 @@ const raspMovementMessage = (ctx) => {
 }
 
 const help = (ctx) => {
-    return ctx.reply(`Привет! Меня сделал Володя)\n
+    return ctx.replyWithHTML(`Привет! Меня сделал <a href="https://t.me/atombaytovich">Володя</a>)\n
 Пробежимся по командам: 
 
 /rasp - покажет тебе расписание на сегодняшний день, кнопки ⬅️➡️ помогут посмотреть что было вчера или будет завтра
@@ -100,7 +102,8 @@ const help = (ctx) => {
 
 
 `, {
-        ...menuButton
+        ...menuButton,
+        disable_web_page_preview: true 
     })
 }
 ///calend - покажет тебе календарное расписание занятий

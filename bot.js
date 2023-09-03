@@ -4,6 +4,20 @@ const { start, raspMessage, raspMovementMessage, help } = require('./controllers
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 const setupBot = () => {
+    bot.telegram.setMyCommands([
+        {
+            command: '/start',
+            description: 'Открыть главное меню',
+        },
+        {
+            command: '/rasp',
+            description: 'Смотреть своё расписание',
+        },
+        {
+            command: '/help',
+            description: 'Открыть раздел помощь',
+        }
+    ]);
     bot.start((ctx) => start(ctx, false));
     bot.action('start', (ctx) => start(ctx, true))
 
