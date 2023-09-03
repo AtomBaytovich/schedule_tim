@@ -21,7 +21,7 @@ const rasp = (command, date = new Date()) => {
         let dateBack = moment().add(-1, 'days').format('L')
         let dateNext = moment().add(+1, 'days').format('L')
         let dayWeek = moment().format('dddd');
-        let chetOrNechet = chetOrNoChetWeek()
+        let chetOrNechet = chetOrNoChetWeek(moment().format('DD MM YYYY'))
         console.log(moment())
         if (command == "движение") {
             dateBack = moment(date).add(-1, 'days').format('L')
@@ -103,7 +103,7 @@ const help = (ctx) => {
 
 `, {
         ...menuButton,
-        disable_web_page_preview: true 
+        disable_web_page_preview: true
     })
 }
 ///calend - покажет тебе календарное расписание занятий
