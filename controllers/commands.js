@@ -4,13 +4,15 @@ const { dateRaspButton } = require('./buttons');
 const { getNumberDay, chetOrNoChetWeek, smileFACE } = require('../tools/helpers');
 moment.locale("ru")
 
-const start = (ctx) =>
+const start = (ctx) => {
+    
     ctx.reply(`
         ❤️ Привет, ${ctx.from.first_name}! 
     ❔ Я помогу тебе с расписанием 
-    🖥 Д-Э 107, команды:
+    🖥 Д-Э 207, команды:
     /rasp - получить расписание на сегодня
     `);
+}
 
 const rasp = (command, date = new Date()) => {
     //https://dwweb.ru/chetnost_nedeli.html#paragraph_javascript_even_odd_week_2
