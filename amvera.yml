@@ -5,4 +5,4 @@ meta:
     version: 18
 
 run:
-  command: npm run start
+  command: npm run dev
